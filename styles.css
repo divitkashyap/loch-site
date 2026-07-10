@@ -115,13 +115,14 @@ img { display: block; max-width: 100%; }
    intercepts clicks; fades at the edges so it blends into the page glow. */
 .hero-bends {
   position: absolute;
-  inset: -40px -10vw auto -10vw;
-  height: 620px;
+  inset: -40px -10vw 0 -10vw;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.55;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 45%, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 45%, transparent 85%);
+  opacity: 0.6;
+  /* Centered on the eyebrow/headline/subhead block specifically -- the
+     stage demo below already has its own bezel gradient. */
+  mask-image: radial-gradient(ellipse 90% 46% at 50% 26%, #000 55%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 46% at 50% 26%, #000 55%, transparent 100%);
 }
 
 .hero > *:not(.hero-bends) {
