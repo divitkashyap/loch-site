@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loch — the developer's dynamic island</title>
+  <meta name="description" content="Loch turns your MacBook's notch into a live surface for music, clipboard, AI agents, and builds. Free, native, and quiet until something needs you." />
+
+  <link rel="icon" href="/assets/favicon.png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+  <meta property="og:title" content="Loch — the developer's dynamic island" />
+  <meta property="og:description" content="Turns your MacBook's notch into a live surface for music, clipboard, AI agents, and builds." />
+  <meta property="og:image" content="/assets/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+  <div class="glow-field" aria-hidden="true"></div>
+
+  <header class="nav">
+    <a class="nav-mark" href="#top">
+      <img src="/assets/splash-white.png" alt="" width="22" height="22" />
+      <span>Loch</span>
+    </a>
+    <nav class="nav-links">
+      <a href="https://github.com/divitkashyap/loch-app" target="_blank" rel="noopener">Source</a>
+      <a href="https://github.com/divitkashyap/loch-app/blob/main/INSTALL.md" target="_blank" rel="noopener">Install guide</a>
+      <a class="nav-cta" href="https://github.com/divitkashyap/loch-app/releases/latest" target="_blank" rel="noopener">Download</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <section class="hero">
+      <p class="eyebrow">macOS 14+ &middot; Apple Silicon &amp; Intel &middot; Free</p>
+      <h1>Put your notch<br />to work.</h1>
+      <p class="hero-sub">
+        Loch turns the space Apple left empty into a live surface for your
+        music, clipboard, AI agents, and builds — and stays out of the way
+        until something actually needs you.
+      </p>
+
+      <div class="cta-row">
+        <button class="btn-copy" id="copyBtn" type="button" aria-label="Copy install command">
+          <span class="btn-copy-prompt">$</span>
+          <code>brew install --cask divitkashyap/tap/loch</code>
+          <span class="btn-copy-icon" id="copyIcon">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5.5 2.5h6A1.5 1.5 0 0 1 13 4v6a1.5 1.5 0 0 1-1.5 1.5h-6A1.5 1.5 0 0 1 4 10V4a1.5 1.5 0 0 1 1.5-1.5Z" stroke="currentColor" stroke-width="1.2"/><path d="M3 5.5v6A1.5 1.5 0 0 0 4.5 13h6" stroke="currentColor" stroke-width="1.2"/></svg>
+          </span>
+        </button>
+        <a class="btn-secondary" href="https://github.com/divitkashyap/loch-app/releases/latest" target="_blank" rel="noopener">
+          Download for macOS
+        </a>
+      </div>
+
+      <!-- Signature element: a live recreation of the notch itself, cycling
+           through the same states the real app uses (idle -> compact -> expanded). -->
+      <div class="stage" role="img" aria-label="Animated demo of the Loch notch expanding to show a now-playing music panel">
+        <div class="stage-bezel">
+          <div class="stage-cam" aria-hidden="true"></div>
+          <div class="notch" id="notch" data-state="idle">
+            <div class="notch-idle">
+              <img src="/assets/splash-white.png" alt="" width="13" height="13" />
+            </div>
+            <div class="notch-compact">
+              <img class="compact-art" src="/assets/hero-music.webp" alt="" />
+              <div class="waveform" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="notch-expanded">
+              <img src="/assets/hero-music.webp" alt="Loch showing a Spotify track playing, with artwork, transport controls, and a scrubber" />
+            </div>
+          </div>
+          <p class="stage-caption" id="stageCaption" aria-hidden="true">Idle — out of the way</p>
+        </div>
+        <div class="stage-shadow" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="features" aria-label="Features">
+      <p class="section-eyebrow">What lives in your notch</p>
+      <div class="feature-grid">
+        <article class="tile">
+          <div class="tile-icon tile-icon-music" aria-hidden="true">♪</div>
+          <h3>Music</h3>
+          <p>Spotify and Apple Music with real artwork, a live waveform, and full transport.</p>
+        </article>
+        <article class="tile">
+          <div class="tile-icon tile-icon-clip" aria-hidden="true">❐</div>
+          <h3>Clipboard</h3>
+          <p>Copy history with image previews and context-aware actions for URLs, JSON, and stack traces.</p>
+        </article>
+        <article class="tile">
+          <div class="tile-icon tile-icon-agents" aria-hidden="true">&gt;_</div>
+          <h3>AI agents</h3>
+          <p>Claude, Codex, and tmux sessions tracked live, with quick approvals when they need you.</p>
+        </article>
+        <article class="tile">
+          <div class="tile-icon tile-icon-builds" aria-hidden="true">◆</div>
+          <h3>Builds</h3>
+          <p>npm, cargo, and Xcode jobs badge the notch while they run — kill one with a tap.</p>
+        </article>
+        <article class="tile">
+          <div class="tile-icon tile-icon-ports" aria-hidden="true">◉</div>
+          <h3>Ports</h3>
+          <p>Every listening dev port, one tap to open in a browser or kill.</p>
+        </article>
+        <article class="tile">
+          <div class="tile-icon tile-icon-dictation" aria-hidden="true">●</div>
+          <h3>Dictation</h3>
+          <p>Hold a key, talk, and it's pasted where you're typing — fully on-device.</p>
+        </article>
+        <article class="tile">
+          <div class="tile-icon tile-icon-toggles" aria-hidden="true">▤</div>
+          <h3>Toggles</h3>
+          <p>Keep-awake with a timer, dark mode, mic mute, and output switching.</p>
+        </article>
+        <article class="tile">
+          <div class="tile-icon tile-icon-ops" aria-hidden="true">◷</div>
+          <h3>Daily Ops</h3>
+          <p>Battery, network, downloads, and your next calendar event.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="philosophy">
+      <div class="philosophy-inner">
+        <p class="section-eyebrow">Quiet by default</p>
+        <h2>It shows up when something needs you.<br />Otherwise, it disappears.</h2>
+        <p class="philosophy-copy">
+          A permission prompt. A finished build. A song change. That's when
+          Loch takes the notch — every surface has an attention-only mode, so
+          a running process never just sits there taking up space.
+        </p>
+      </div>
+    </section>
+
+    <section class="install" id="install">
+      <p class="section-eyebrow">Install</p>
+      <h2>One line, one download.</h2>
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-row">
+            <span class="prompt">$</span>
+            <code>brew install --cask divitkashyap/tap/loch</code>
+            <button class="term-copy" id="termCopyBtn" type="button" aria-label="Copy install command">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="install-alt">
+        Prefer not to use Homebrew? Grab the zip from
+        <a href="https://github.com/divitkashyap/loch-app/releases/latest" target="_blank" rel="noopener">GitHub Releases</a>
+        and drop it in /Applications.
+      </p>
+
+      <p class="install-fine">
+        macOS 14 Sonoma or later. Unsigned for now — clear Gatekeeper once
+        after verifying the checksum, see the
+        <a href="https://github.com/divitkashyap/loch-app/blob/main/INSTALL.md" target="_blank" rel="noopener">install guide</a>.
+        Free. No account. No telemetry.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <a class="footer-mark" href="#top">
+      <img src="/assets/splash-white.png" alt="" width="16" height="16" />
+      <span>Loch</span>
+    </a>
+    <div class="footer-links">
+      <a href="https://github.com/divitkashyap/loch-app" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/divitkashyap/loch-app/releases" target="_blank" rel="noopener">Releases</a>
+      <a href="https://github.com/divitkashyap/loch-app/blob/main/docs/PRIVACY.md" target="_blank" rel="noopener">Privacy</a>
+      <a href="https://github.com/divitkashyap/loch-app/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
+    </div>
+    <p class="footer-fine">Free to use, closed source. Not affiliated with Apple.</p>
+  </footer>
+
+  <script src="/script.js"></script>
+
+
+</body>
+</html>
