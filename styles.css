@@ -349,12 +349,20 @@ img { display: block; max-width: 100%; }
   border: 1px solid var(--card-border);
   border-radius: 16px;
   padding: 22px 20px;
+  overflow: hidden;
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--ease-spring);
 }
 .tile:hover {
   border-color: rgba(124, 92, 255, 0.35);
   background: rgba(255, 255, 255, 0.065);
   transform: translateY(-2px);
+}
+
+.tile-shot {
+  display: block;
+  width: calc(100% + 40px);
+  margin: -22px -20px 16px;
+  border-bottom: 1px solid var(--card-border);
 }
 
 .tile-icon {
