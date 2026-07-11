@@ -338,54 +338,115 @@ img { display: block; max-width: 100%; }
   margin: 0 0 40px;
 }
 
-.feature-grid {
+.feature-explorer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  align-items: stretch;
+  max-width: 1080px;
+  margin: 0 auto;
 }
 
-.tile {
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  padding: 22px 20px;
-  overflow: hidden;
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--ease-spring);
-}
-.tile:hover {
-  border-color: rgba(124, 92, 255, 0.35);
-  background: rgba(255, 255, 255, 0.065);
-  transform: translateY(-2px);
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.tile-shot {
-  display: block;
-  width: calc(100% + 40px);
-  margin: -22px -20px 16px;
-  border-bottom: 1px solid var(--card-border);
+.feature-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.feature-row:hover {
+  background: rgba(255, 255, 255, 0.045);
+}
+.feature-row.is-active {
+  background: rgba(124, 92, 255, 0.1);
+  border-color: rgba(124, 92, 255, 0.3);
 }
 
-.tile-icon {
-  width: 34px; height: 34px;
-  border-radius: 9px;
+.feature-row-icon {
+  flex-shrink: 0;
+  width: 30px; height: 30px;
+  border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.95rem;
-  margin-bottom: 14px;
+  font-size: 0.85rem;
+  margin-top: 2px;
   color: var(--accent-bright);
   background: rgba(124, 92, 255, 0.14);
 }
 
-.tile h3 {
-  font-size: 1rem;
+.feature-row-text { display: flex; flex-direction: column; gap: 3px; }
+
+.feature-row-title {
+  font-size: 0.95rem;
   font-weight: 620;
-  margin: 0 0 6px;
   letter-spacing: -0.01em;
 }
-.tile p {
-  font-size: 0.87rem;
-  line-height: 1.5;
+.feature-row-sub {
+  font-size: 0.82rem;
+  line-height: 1.45;
   color: var(--text-muted);
-  margin: 0;
+}
+.feature-row:not(.is-active) .feature-row-sub {
+  display: none;
+}
+
+.feature-preview {
+  background: linear-gradient(180deg, #1c1a35, #100e24);
+  border: 1px solid var(--card-border);
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.55);
+  min-height: 320px;
+}
+
+/* Reuses the hero notch's collapse/expand motion language as the
+   transition between feature screenshots: shrink to a small black pill,
+   then grow back out with the next image, instead of a hard cut. */
+.feature-preview-notch {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  transform-origin: center top;
+  transition: transform 0.28s var(--ease-spring), border-radius 0.28s ease;
+}
+.feature-preview-notch.is-morphing {
+  transform: scale(0.24, 0.16);
+  border-radius: 18px;
+}
+
+.feature-preview-notch img {
+  display: block;
+  width: 100%;
+  border-radius: inherit;
+  transition: opacity 0.16s ease;
+}
+.feature-preview-notch.is-morphing img {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-preview-notch,
+  .feature-preview-notch img { transition: none; }
+}
+
+@media (max-width: 780px) {
+  .feature-explorer { grid-template-columns: 1fr; }
 }
 
 /* ---------- Philosophy ---------- */
