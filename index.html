@@ -79,61 +79,65 @@
       </div>
     </section>
 
-    <section class="features" aria-label="Features">
-      <p class="section-eyebrow">What lives in your notch</p>
+    <section class="features" id="features" aria-labelledby="featuresTitle">
+      <div class="section-intro">
+        <p class="section-eyebrow">What lives in your notch</p>
+        <h2 id="featuresTitle">Eight surfaces. One quiet place.</h2>
+        <p>Move through the tools you check all day. Loch keeps each one close, then gets out of the way.</p>
+      </div>
 
       <div class="feature-explorer" id="featureExplorer">
         <div class="feature-list" role="tablist">
-          <button class="feature-row is-active" role="tab" aria-selected="true" data-preview="/assets/previews/music.webp" data-alt="Loch's now-playing panel with real album art, a scrubber, and transport controls">
+          <button class="feature-row is-active" role="tab" aria-selected="true" aria-controls="featurePreviewPanel" tabindex="0" data-preview="/assets/previews/music.webp" data-alt="Loch's now-playing panel with real album art, a scrubber, and transport controls">
             <span class="feature-row-icon" aria-hidden="true">♪</span>
             <span class="feature-row-text">
               <span class="feature-row-title">Music</span>
               <span class="feature-row-sub">Spotify and Apple Music with real artwork, a live waveform, and full transport.</span>
             </span>
           </button>
-          <button class="feature-row" role="tab" aria-selected="false" data-preview="/assets/previews/clipboard.webp" data-alt="Loch's clipboard history showing detected text, JSON, and link cards">
+          <button class="feature-row" role="tab" aria-selected="false" aria-controls="featurePreviewPanel" tabindex="-1" data-preview="/assets/previews/clipboard.webp" data-alt="Loch's clipboard history showing detected text, JSON, and link cards">
             <span class="feature-row-icon" aria-hidden="true">❐</span>
             <span class="feature-row-text">
               <span class="feature-row-title">Clipboard</span>
               <span class="feature-row-sub">Copy history with image previews and context-aware actions for URLs, JSON, and stack traces.</span>
             </span>
           </button>
-          <button class="feature-row" role="tab" aria-selected="false" data-preview="/assets/previews/agents.webp" data-alt="Loch's AI Sessions view tracking live Claude and CMUX sessions with progress bars">
+          <button class="feature-row" role="tab" aria-selected="false" aria-controls="featurePreviewPanel" tabindex="-1" data-preview="/assets/previews/agents.webp" data-alt="Loch's AI Sessions view tracking live Claude and CMUX sessions with progress bars">
             <span class="feature-row-icon" aria-hidden="true">&gt;_</span>
             <span class="feature-row-text">
               <span class="feature-row-title">AI agents</span>
               <span class="feature-row-sub">Claude, Codex, and tmux sessions tracked live, with quick approvals when they need you.</span>
             </span>
           </button>
-          <button class="feature-row" role="tab" aria-selected="false" data-preview="/assets/previews/builds.webp" data-alt="Loch's Build Watcher showing a running pnpm dev process with a kill button">
+          <button class="feature-row" role="tab" aria-selected="false" aria-controls="featurePreviewPanel" tabindex="-1" data-preview="/assets/previews/builds.webp" data-alt="Loch's Build Watcher showing a running pnpm dev process with a kill button">
             <span class="feature-row-icon" aria-hidden="true">◆</span>
             <span class="feature-row-text">
               <span class="feature-row-title">Builds</span>
               <span class="feature-row-sub">npm, cargo, and Xcode jobs badge the notch while they run — kill one with a tap.</span>
             </span>
           </button>
-          <button class="feature-row" role="tab" aria-selected="false" data-preview="/assets/previews/ports.webp" data-alt="Loch's Port Watcher listing local dev ports with open and kill actions">
+          <button class="feature-row" role="tab" aria-selected="false" aria-controls="featurePreviewPanel" tabindex="-1" data-preview="/assets/previews/ports.webp" data-alt="Loch's Port Watcher listing local dev ports with open and kill actions">
             <span class="feature-row-icon" aria-hidden="true">◉</span>
             <span class="feature-row-text">
               <span class="feature-row-title">Ports</span>
               <span class="feature-row-sub">Every listening dev port, one tap to open in a browser or kill.</span>
             </span>
           </button>
-          <button class="feature-row" role="tab" aria-selected="false" data-preview="/assets/previews/dictation.webp" data-alt="Loch's dictation listening state with a live waveform">
+          <button class="feature-row" role="tab" aria-selected="false" aria-controls="featurePreviewPanel" tabindex="-1" data-preview="/assets/previews/dictation.webp" data-alt="Loch's dictation listening state with a live waveform">
             <span class="feature-row-icon" aria-hidden="true">●</span>
             <span class="feature-row-text">
               <span class="feature-row-title">Dictation</span>
               <span class="feature-row-sub">Hold a key, talk, and it's pasted where you're typing — fully on-device.</span>
             </span>
           </button>
-          <button class="feature-row" role="tab" aria-selected="false" data-preview="/assets/previews/toggles.webp" data-alt="Loch's Quick Toggles grid for keep-awake, dark mode, audio output, and more">
+          <button class="feature-row" role="tab" aria-selected="false" aria-controls="featurePreviewPanel" tabindex="-1" data-preview="/assets/previews/toggles.webp" data-alt="Loch's Quick Toggles grid for keep-awake, dark mode, audio output, and more">
             <span class="feature-row-icon" aria-hidden="true">▤</span>
             <span class="feature-row-text">
               <span class="feature-row-title">Toggles</span>
               <span class="feature-row-sub">Keep-awake with a timer, dark mode, mic mute, and output switching.</span>
             </span>
           </button>
-          <button class="feature-row" role="tab" aria-selected="false" data-preview="/assets/previews/today.webp" data-alt="Loch's Daily Ops widgets showing battery, downloads, network, and a timer">
+          <button class="feature-row" role="tab" aria-selected="false" aria-controls="featurePreviewPanel" tabindex="-1" data-preview="/assets/previews/today.webp" data-alt="Loch's Daily Ops widgets showing battery, downloads, network, and a timer">
             <span class="feature-row-icon" aria-hidden="true">◷</span>
             <span class="feature-row-text">
               <span class="feature-row-title">Daily Ops</span>
@@ -142,9 +146,18 @@
           </button>
         </div>
 
-        <div class="feature-preview">
+        <div class="feature-preview" id="featurePreviewPanel" role="tabpanel" aria-live="polite">
+          <div class="feature-preview-toolbar" aria-hidden="true">
+            <span class="feature-preview-status"><span></span>Live preview</span>
+            <span class="feature-preview-hint">Hover, focus, or click a surface</span>
+          </div>
           <div class="feature-preview-notch" id="featurePreviewNotch">
-            <img id="featurePreviewImg" src="/assets/previews/music.webp" alt="Loch's now-playing panel with real album art, a scrubber, and transport controls" />
+            <img class="feature-preview-image is-visible" id="featurePreviewImg" src="/assets/previews/music.webp" alt="Loch's now-playing panel with real album art, a scrubber, and transport controls" />
+            <img class="feature-preview-image" id="featurePreviewIncoming" src="/assets/previews/music.webp" alt="" />
+          </div>
+          <div class="feature-preview-caption">
+            <p class="feature-preview-title" id="featurePreviewTitle">Music</p>
+            <p class="feature-preview-description" id="featurePreviewDescription">Spotify and Apple Music with real artwork, a live waveform, and full transport.</p>
           </div>
         </div>
       </div>

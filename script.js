@@ -90,49 +90,105 @@
     }
   }
 
-  // Feature explorer: sidebar list -> large preview on the right. Hover
-  // previews instantly (desktop); click pins it (and is the only way to
-  // switch on touch, since there's no hover there).
+  // Feature explorer: keep the preview stage and every row geometrically
+  // stable, then crossfade between two preloaded image layers. Hover previews
+  // a surface, click pins it, and keyboard arrows move through the tablist.
   const explorer = document.getElementById("featureExplorer");
   if (explorer) {
     const rows = Array.from(explorer.querySelectorAll(".feature-row"));
-    const notch = document.getElementById("featurePreviewNotch");
-    const previewImg = document.getElementById("featurePreviewImg");
+    const list = explorer.querySelector(".feature-list");
+    const layers = [
+      document.getElementById("featurePreviewImg"),
+      document.getElementById("featurePreviewIncoming"),
+    ];
+    const previewTitle = document.getElementById("featurePreviewTitle");
+    const previewDescription = document.getElementById("featurePreviewDescription");
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const morphMs = 280;
-    let morphing = false;
+    let visibleLayer = 0;
+    let currentSrc = layers[0].getAttribute("src");
+    let pinnedRow = rows[0];
+    let hoverTimer;
+    let transitionToken = 0;
 
-    function show(row) {
+    rows.forEach((row) => {
+      const image = new Image();
+      image.src = row.dataset.preview;
+    });
+
+    function descriptionFor(row) {
+      return row.querySelector(".feature-row-sub")?.textContent.trim() || "";
+    }
+
+    function updateSelection(row) {
       rows.forEach((r) => {
-        r.classList.toggle("is-active", r === row);
-        r.setAttribute("aria-selected", r === row ? "true" : "false");
+        const selected = r === row;
+        r.classList.toggle("is-active", selected);
+        r.setAttribute("aria-selected", selected ? "true" : "false");
+        r.setAttribute("tabindex", selected ? "0" : "-1");
       });
-      const src = row.dataset.preview;
-      if (previewImg.getAttribute("src") === src || morphing) return;
+      if (previewTitle) {
+        previewTitle.textContent = row.querySelector(".feature-row-title")?.textContent || "";
+      }
+      if (previewDescription) previewDescription.textContent = descriptionFor(row);
+    }
 
-      const swap = () => {
-        previewImg.setAttribute("src", src);
-        previewImg.setAttribute("alt", row.dataset.alt || "");
+    function transitionTo(row) {
+      const src = row.dataset.preview;
+      if (!src || src === currentSrc) return;
+
+      const token = ++transitionToken;
+      const outgoing = layers[visibleLayer];
+      const nextLayer = visibleLayer === 0 ? 1 : 0;
+      const incoming = layers[nextLayer];
+      incoming.setAttribute("src", src);
+      incoming.setAttribute("alt", row.dataset.alt || "");
+
+      const reveal = () => {
+        if (token !== transitionToken) return;
+        incoming.classList.add("is-visible");
+        outgoing.classList.remove("is-visible");
+        outgoing.setAttribute("alt", "");
+        visibleLayer = nextLayer;
+        currentSrc = src;
       };
 
-      if (reduceMotion) {
-        swap();
-        return;
+      if (reduceMotion || incoming.complete) {
+        window.requestAnimationFrame(reveal);
+      } else {
+        incoming.addEventListener("load", reveal, { once: true });
       }
+    }
 
-      morphing = true;
-      notch.classList.add("is-morphing");
-      window.setTimeout(() => {
-        swap();
-        notch.classList.remove("is-morphing");
-        window.setTimeout(() => (morphing = false), morphMs);
-      }, morphMs);
+    function show(row, immediate = false) {
+      window.clearTimeout(hoverTimer);
+      updateSelection(row);
+      if (immediate || reduceMotion) {
+        transitionTo(row);
+      } else {
+        hoverTimer = window.setTimeout(() => transitionTo(row), 55);
+      }
     }
 
     rows.forEach((row) => {
       row.addEventListener("mouseenter", () => show(row));
-      row.addEventListener("click", () => show(row));
+      row.addEventListener("click", () => {
+        pinnedRow = row;
+        show(row, true);
+      });
       row.addEventListener("focus", () => show(row));
+      row.addEventListener("keydown", (event) => {
+        if (!["ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        const current = rows.indexOf(row);
+        const forward = event.key === "ArrowDown" || event.key === "ArrowRight";
+        let next = forward ? current + 1 : current - 1;
+        if (event.key === "Home") next = 0;
+        if (event.key === "End") next = rows.length - 1;
+        next = (next + rows.length) % rows.length;
+        rows[next].focus();
+      });
     });
+
+    list.addEventListener("mouseleave", () => show(pinnedRow));
   }
 })();
