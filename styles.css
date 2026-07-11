@@ -116,7 +116,13 @@ img { display: block; max-width: 100%; }
 .hero-bends {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  /* Negative, matching .glow-field -- a positioned element with z-index:0
+     still paints above ordinary static in-flow content further down the
+     page (fixed content leaves normal flow but still out-ranks static
+     siblings in paint order), which let this bleed through over later
+     sections once it went full-viewport. Negative pins it behind
+     everything, always. */
+  z-index: -1;
   pointer-events: none;
   opacity: 0.55;
 }
