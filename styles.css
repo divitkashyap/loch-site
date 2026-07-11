@@ -78,27 +78,69 @@ img { display: block; max-width: 100%; }
   font-size: 1.05rem;
   letter-spacing: -0.01em;
 }
+.nav-mark img { transition: transform 0.4s var(--ease-spring); }
+.nav-mark:hover img { transform: rotate(360deg); }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: clamp(14px, 3vw, 28px);
-  font-size: 0.9rem;
+  gap: 4px;
+  padding: 4px;
+  font-size: 0.88rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--card-border);
+  border-radius: 9999px;
 }
 
-.nav-links a { text-decoration: none; color: var(--text-muted); transition: color 0.15s ease; }
-.nav-links a:hover { color: var(--text); }
+.pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 9999px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--text-muted);
+}
+.pill-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  transition: transform 0.32s var(--ease-spring);
+}
+.pill:hover .pill-fill,
+.pill:focus-visible .pill-fill { transform: scaleY(1); }
+.pill-label-stack {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  height: 1.1em;
+  line-height: 1.1em;
+}
+.pill-label,
+.pill-label-hover {
+  display: block;
+  transition: transform 0.28s var(--ease-spring);
+}
+.pill-label-hover {
+  position: absolute;
+  inset: 0;
+  color: #fff;
+  transform: translateY(100%);
+}
+.pill:hover .pill-label { transform: translateY(-100%); }
+.pill:hover .pill-label-hover { transform: translateY(0); }
 
 .nav-cta {
-  color: var(--text) !important;
-  background: var(--card);
-  border: 1px solid var(--card-border);
-  padding: 7px 14px;
-  border-radius: 8px;
-  font-weight: 550;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  color: var(--bg) !important;
+  background: var(--text);
 }
-.nav-cta:hover { background: rgba(255, 255, 255, 0.09); border-color: rgba(255, 255, 255, 0.18); }
+.nav-cta .pill-fill { background: var(--accent-bright); }
+.nav-cta .pill-label-hover { color: var(--bg); }
 
 /* ---------- Hero ---------- */
 
@@ -122,7 +164,23 @@ img { display: block; max-width: 100%; }
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.82;
+  opacity: 0.9;
+  /* A real fallback, not a placeholder color: this remains visible when
+     WebGL is disabled, Reduce Motion is on, or the remote Three.js module is
+     unavailable. The canvas layers over it when the shader mounts. */
+  background:
+    radial-gradient(ellipse 82% 54% at 8% 58%, rgba(54, 42, 165, 0.34), transparent 68%),
+    radial-gradient(ellipse 70% 46% at 88% 24%, rgba(124, 92, 255, 0.25), transparent 70%),
+    radial-gradient(ellipse 52% 38% at 55% 72%, rgba(74, 49, 189, 0.20), transparent 72%);
+}
+.hero-bends canvas {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.hero-bends.is-mounted canvas {
+  opacity: 1;
 }
 
 /* Keep the shader visible without letting its brightest bands compete with
@@ -335,6 +393,8 @@ img { display: block; max-width: 100%; }
 @media (prefers-reduced-motion: reduce) {
   .notch, .notch > div { transition: none !important; }
   .waveform span { animation: none !important; height: 60% !important; }
+  .pill-fill, .pill-label, .pill-label-hover, .nav-mark img,
+  .hero-bends canvas { transition: none !important; }
 }
 
 /* ---------- Feature grid ---------- */
