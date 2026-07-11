@@ -106,25 +106,38 @@ img { display: block; max-width: 100%; }
   position: relative;
   padding: clamp(48px, 9vw, 96px) clamp(20px, 5vw, 56px) 0;
   text-align: center;
-  max-width: 900px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  min-height: calc(100svh - 74px);
+  margin: 0;
+  isolation: isolate;
+  overflow: hidden;
 }
 
 /* Ambient shader wash behind the hero copy and notch demo -- see
    colorbends-init.js for the restrained, brand-toned parameters. Never
    intercepts clicks; fades at the edges so it blends into the page glow. */
 .hero-bends {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  /* Negative, matching .glow-field -- a positioned element with z-index:0
-     still paints above ordinary static in-flow content further down the
-     page (fixed content leaves normal flow but still out-ranks static
-     siblings in paint order), which let this bleed through over later
-     sections once it went full-viewport. Negative pins it behind
-     everything, always. */
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.55;
+  opacity: 0.82;
+}
+
+/* Keep the shader visible without letting its brightest bands compete with
+   the headline, CTA, or product preview. Because this scrim is scoped to the
+   hero it also fades the WebGL layer cleanly into the normal page background
+   before later sections begin. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 62% 48% at 50% 32%, rgba(10, 9, 24, 0.16), rgba(10, 9, 24, 0.48) 78%),
+    linear-gradient(180deg, rgba(10, 9, 24, 0.08) 0%, rgba(10, 9, 24, 0.18) 66%, var(--bg) 100%);
 }
 
 .hero > *:not(.hero-bends) {
