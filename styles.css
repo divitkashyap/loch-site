@@ -65,7 +65,7 @@ img { display: block; max-width: 100%; }
   justify-content: space-between;
   padding: 20px clamp(20px, 5vw, 56px);
   backdrop-filter: blur(16px);
-  background: rgba(10, 9, 24, 0.55);
+  background: rgba(10, 9, 24, 0.32);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -114,7 +114,7 @@ img { display: block; max-width: 100%; }
    colorbends-init.js for the restrained, brand-toned parameters. Never
    intercepts clicks; fades at the edges so it blends into the page glow. */
 .hero-bends {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
@@ -209,11 +209,12 @@ img { display: block; max-width: 100%; }
   flex-direction: column;
   align-items: center;
   min-height: 360px;
-  background:
-    radial-gradient(480px 320px at 50% 0%, rgba(124, 92, 255, 0.20), transparent 65%),
-    radial-gradient(360px 260px at 15% 85%, rgba(74, 49, 189, 0.22), transparent 70%),
-    radial-gradient(360px 260px at 88% 80%, rgba(124, 92, 255, 0.12), transparent 70%),
-    linear-gradient(180deg, #1c1a35, #100e24);
+  /* Frosted glass, not a solid fill -- lets the fixed, full-viewport
+     ColorBends wash show through blurred, so the whole first screen (nav
+     through the demo widget) reads as one continuous background. */
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 22px 22px 8px 8px;
   padding: 18px 18px 0;
